@@ -43,7 +43,6 @@ def crawl(start_url):
                         print('正在获取 {title}'.format(title=title))
                         f.write('{title}{content}\n'.format(title=title, content=content))
 
-
 if __name__ == '__main__':
     start_url = 'https://so.gushiwen.org/authors/authorvsw_b90660e3e492A'
     crawl(start_url)
