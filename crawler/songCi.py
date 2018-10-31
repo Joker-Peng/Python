@@ -50,7 +50,6 @@ def crawl(start_url):
                     print('正在获取 {title}'.format(title=title))
                     f.write('{title}\n{dynasty}:{author}\n{content}\n'.format(title=title,dynasty=dynasty,author=author,content=content))
 
-
 if __name__ == '__main__':
     start_url='https://so.gushiwen.org/gushi/songci.aspx'
     crawl(start_url)
