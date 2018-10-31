@@ -7,6 +7,7 @@ def crawl(start_url):
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
     }
     restart_url = start_url
+    base_url = 'http://www.jinyongwang.com'
     res = requests.get(restart_url, headers=req_headers)
     if res.status_code == requests.codes.ok:
         html = res.text
@@ -14,7 +15,7 @@ def crawl(start_url):
         urls = re.findall(url, html)
         urls = urls[15:30]
         for url in urls:
-            res = requests.get('http://www.jinyongwang.com' + url, headers=req_headers)
+            res = requests.get(base_url + url, headers=req_headers)
             if res.status_code == requests.codes.ok:
                 html = res.text
                 # 书名
@@ -24,16 +25,18 @@ def crawl(start_url):
                 with open('金庸全集.txt', mode='a', encoding='utf-8') as f:
                     f.write('{bookName}\n'.format(bookName = bookName))
                     # 所有的章节
-                    zhangMing = re.compile(r'<li><a href="'+ url + '.*?">(.*?)</a></li>',re.DOTALL)
-                    zhangMings = re.findall(zhangMing,html)
-                    zhengUrl = re.compile(r'<li><a href="'+ url + '(.*?)">.*?</a></li>',re.DOTALL)
-                    zhangUrls = re.findall(zhengUrl,html)
-                    for i in range(len(zhangMings)):
-                        f.write('{zhangMing}\n'.format(zhangMing=zhangMings[i]))
-                        print("正在写入"+ zhangMings[i])
-                        res = requests.get('http://www.jinyongwang.com' + url + zhangUrls[i], headers=req_headers)
+                    chapterName = re.compile(r'<li><a href="'+ url + '.*?">(.*?)</a></li>',re.DOTALL)
+                    chapterNames = re.findall(chapterName,html)
+                    # 所有章节的链接
+                    chapterUrl = re.compile(r'<li><a href="'+ url + '(.*?)">.*?</a></li>',re.DOTALL)
+                    chapterUrls = re.findall(chapterUrl,html)
+                    for i in range(len(chapterNames)):
+                        f.write('{chapterName}\n'.format(chapterName=chapterNames[i]))
+                        print("正在写入"+ chapterNames[i])
+                        res = requests.get(base_url + url + chapterUrls[i], headers=req_headers)
                         if res.status_code == requests.codes.ok:
                             html = res.text
+                            # 章节的内容
                             content = re.compile(r'<p>(.*?)<p>',re.DOTALL)
                             content = re.findall(content,html)
                             for k in content:
