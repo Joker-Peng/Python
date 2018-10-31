@@ -38,6 +38,7 @@ def main(page):
         print(item)
         write_content_to_file(item)
 
+        
 if __name__ == "__main__":
     for i in range(1,26):
         main(i)
