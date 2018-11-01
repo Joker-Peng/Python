@@ -16,11 +16,12 @@ def crawl(start_url):
         for url in urls:
             res = requests.get(restart_url + url, headers=req_headers)
             if res.status_code == requests.codes.ok:
+                # 开发该网站的编码居然是gb2312
                 html = res.text.encode("latin1").decode("gbk")
                 # 获取书名
                 bookName = re.compile(r'<div class="fg">(.*?)</div>')
                 bookName = re.findall(bookName,html)[0]
-                with open('古龙全集1.txt', mode='a', encoding='utf-8') as f:
+                with open('古龙全集.txt', mode='a', encoding='utf-8') as f:
                     f.write('{bookName}\n'.format(bookName = bookName))
                     print("正在写入" + bookName)
 
