@@ -32,7 +32,6 @@ def crawl(start_url):
                     chapterUrl = re.compile(r'<a href="' + url + '(.*?).html">')
                     chapterUrls = re.findall(chapterUrl,html)
                     for i in range(len(chapterNames)):
-                    # for i in range(1):
                         f.write('{chapterName}\n'.format(chapterName=re.sub(r'正文 ','',chapterNames[i])))
                         print("正在写入"+ chapterNames[i])
                         res = requests.get(restart_url + url + chapterUrls[i] + '.html', headers=req_headers)
