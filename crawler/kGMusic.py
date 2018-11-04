@@ -27,7 +27,7 @@ def get_song(x):
         with open(name + ".mp3", "wb")as fp:
             fp.write(requests.get(real_download_url).content)
         print("歌曲已下载完成！")
-
+        
 
 if __name__ == '__main__':
     x = input("请输入歌名：")
