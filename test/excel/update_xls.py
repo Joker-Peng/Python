@@ -3,7 +3,7 @@ from xlutils.copy import copy
 
 # import copy
 def update_xls():
-    workbook = xlrd.open_workbook('./test.xls')  # 打开工作簿
+    workbook = xlrd.open_workbook('test.xls')  # 打开工作簿
     new_workbook = copy(workbook)  # 将xlrd对象拷贝转化为xlwt对象
     sheet = workbook.sheet_by_index(0)
     col2 = sheet.col_values(1)  # 取出第二列

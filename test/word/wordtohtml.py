@@ -26,7 +26,7 @@ def HtmlMD(filename):
         html = result.value
         # 转化HTML为Markdown
         md = markdownify(html, heading_style="ATX")
-        with open("./docx_to_html.html", 'w', encoding='utf-8') as html_file,open("./docx_to_md.md", "w",encoding='utf-8') as md_file:
+        with open("./docx_to_html.html", 'w', encoding='utf-8') as html_file,open("docx_to_md.md", "w", encoding='utf-8') as md_file:
             # html_file.write(html)
             md_file.write(md)
         messages = result.messages
@@ -35,9 +35,9 @@ def HtmlMD(filename):
 def convert_img(image):
     with image.open() as image_bytes:
         file_suffix = image.content_type.split("/")[1]
-        my_img = Path("./img")
+        my_img = Path("../img")
         if my_img.is_dir()==0:
-            os.makedirs("img")
+            os.makedirs("../img")
         path_file = "./img/{}.{}".format(str(time.time()),file_suffix)
         with open(path_file, 'wb') as f:
             f.write(image_bytes.read())
